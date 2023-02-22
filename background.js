@@ -12,7 +12,7 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-chrome.alarms.create("Start", { periodInMinutes: 1 });
+chrome.alarms.create("Start", { periodInMinutes: 5 });
 
 chrome.alarms.onAlarm.addListener(async function (alarm) {
   await getNoti();
