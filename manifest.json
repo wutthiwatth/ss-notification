@@ -1,6 +1,6 @@
 {
 	"name": "Soccersuck Notify!",
-	"description": "A Google Chrome extension!",
+	"description": "A Chrome extension to get notifications from soccersuck.com!",
 	"version": "1.0",
 	"manifest_version": 3,
 	"host_permissions": [
