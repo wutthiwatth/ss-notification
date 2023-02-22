@@ -1,0 +1,30 @@
+{
+	"name": "Soccersuck Notify!",
+	"description": "A Google Chrome extension!",
+	"version": "1.0",
+	"manifest_version": 3,
+	"host_permissions": [
+		"*://*.soccersuck.com/*"
+	  ],
+	"permissions": [
+		"contextMenus",
+		"notifications",
+		"storage",
+		"cookies",
+		"alarms"
+	],
+	"background": {
+	  "service_worker": "background.js"
+	},
+	"action": {
+	  "default_popup": "popup.html",
+	  "default_icon": {
+		"48": "/assets/icons/ss_logo_f_16.png",
+		"128": "/assets/icons/ss_logo_f_16.png"
+	  }
+	},
+	"icons": {
+		"48": "/assets/icons/ss_logo_f_16.png",
+		"128": "/assets/icons/ss_logo_f_16.png"
+	}
+}
