@@ -1,10 +1,24 @@
-chrome.runtime.onMessage.addListener((data) => {
+chrome.runtime.onMessage.addListener(async (data) => {
   if (data.type === "notification") {
     getNoti();
   }
+  if (data.type === "reset") {
+    chrome.action.setBadgeText({ text: "" });
+  }
+  if (data.type === "switch") {
+    const value = await chrome.storage.local.get("onoff");
+    const newValue = value === 1 ? 0 : 1;
+    await chrome.storage.local.set({ onoff: !value.onoff });
+  }
 });
 
+chrome.notifications.onClicked.addListener(function(notificationId) {
+  chrome.tabs.create({url: notificationId});
+});  
+
 chrome.runtime.onInstalled.addListener(() => {
+  getNoti();
+  chrome.storage.local.set({ onoff: 1 });
   chrome.contextMenus.create({
     id: "ssNotify",
     title: "SSNotify!: %s",
@@ -79,7 +93,10 @@ const getNoti = async () => {
         noti_count + pm_count > 10 ? "10+" : (noti_count + pm_count).toString();
       if (total != "0") {
         chrome.action.setBadgeText({ text: total });
-        notify("คุณมี " + total + " การแจ้งเตือน");
+        const data = await chrome.storage.local.get("onoff");
+        if (data.onoff === 1) {
+          notify("คุณมี " + total + " การแจ้งเตือน");
+        }
       }
     })
     .then((data) => {
@@ -88,10 +105,17 @@ const getNoti = async () => {
 };
 
 const notify = async (message) => {
-  return chrome.notifications.create("", {
-    type: "basic",
-    title: "Soccersuck!!",
-    message: message,
-    iconUrl: "/assets/icons/ss_logo_f_16.png",
-  });
+  return chrome.notifications.create(
+    "https://www.soccersuck.com",
+    {
+      type: "basic",
+      title: "Soccersuck!!",
+      message: message,
+      iconUrl: "/assets/icons/ss_logo_f_16.png",
+    },
+    () => {
+      console.log("123");
+    }
+  );
 };
+
