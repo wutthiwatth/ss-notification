@@ -12,9 +12,9 @@ chrome.runtime.onMessage.addListener(async (data) => {
   }
 });
 
-chrome.notifications.onClicked.addListener(function(notificationId) {
-  chrome.tabs.create({url: notificationId});
-});  
+chrome.notifications.onClicked.addListener(function (notificationId) {
+  chrome.tabs.create({ url: notificationId });
+});
 
 chrome.runtime.onInstalled.addListener(() => {
   getNoti();
@@ -113,9 +113,6 @@ const notify = async (message) => {
       message: message,
       iconUrl: "/assets/icons/ss_logo_f_16.png",
     },
-    () => {
-      console.log("123");
-    }
+    () => {}
   );
 };
-
